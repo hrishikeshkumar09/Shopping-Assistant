@@ -28,7 +28,7 @@ function ChatBubble({ sender, text, products }) {
           </Avatar>
         )}
         <Paper elevation={3} sx={{ p: 2.5, maxWidth: 600, borderRadius: 4, bgcolor: sender === 'user' ? 'primary.main' : '#fff', color: sender === 'user' ? '#fff' : '#222', boxShadow: 3, fontSize: '1.15rem' }}>
-          <Typography variant="body1" sx={{ whiteSpace: 'pre-line', fontSize: '1.15rem' }}>
+          <Typography variant="body1" component="div" sx={{ whiteSpace: 'pre-line', fontSize: '1.15rem', '& p': { margin: 0 }, '& ul, & ol': { margin: 0, paddingLeft: '1.2em' }, lineHeight: 1.3 }}>
             {typeof text === 'string' ? <ReactMarkdown>{text}</ReactMarkdown> : text}
           </Typography>
           {products && products.length > 0 && (
@@ -94,14 +94,18 @@ function App({ isWidget }) {
 
   return (
     <Box sx={{
-      bgcolor: isWidget ? '#f8fafc' : 'linear-gradient(135deg, #e3f2fd 0%, #f0f2f5 100%)',
-      minHeight: isWidget ? undefined : '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      width: isWidget ? '100%' : undefined,
-      height: isWidget ? '100%' : undefined,
-    }}>
-      <Box sx={{ flex: 1, maxWidth: isWidget ? 400 : 950, mx: 'auto', pt: 4, pb: 2, width: '100%' }}>
+    bgcolor: isWidget ? '#f8fafc' : 'linear-gradient(135deg, #e3f2fd 0%, #f0f2f5 100%)',
+    minHeight: isWidget ? undefined : '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    height: isWidget ? '100%' : undefined,
+    maxWidth: isWidget ? '100%' : 950,
+    mx: isWidget ? undefined : 'auto',
+    pt: isWidget ? 1 : 4,
+    pb: 2,
+    overflow: 'hidden',
+  }}>
         {!isWidget && (
           <Paper elevation={4} sx={{ mb: 3, borderRadius: 3, p: 2, bgcolor: 'primary.main', color: '#fff', textAlign: 'center' }}>
             <Typography variant="h4" sx={{ fontWeight: 700, letterSpacing: 1 }}>
@@ -109,7 +113,7 @@ function App({ isWidget }) {
             </Typography>
           </Paper>
         )}
-        <Box sx={{ height: isWidget ? '60vh' : '70vh', maxHeight: isWidget ? '60vh' : '70vh', overflowY: 'auto', mb: 2, px: 1, bgcolor: '#f8fafc', borderRadius: 3, boxShadow: 1, p: 2 }}>
+        <Box sx={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>
           {messages.map((msg, idx) => (
             <ChatBubble key={idx} sender={msg.sender} text={msg.text} products={msg.products} />
           ))}
@@ -132,7 +136,6 @@ function App({ isWidget }) {
             Send
           </Button>
         </Box>
-      </Box>
     </Box>
   );
 }
