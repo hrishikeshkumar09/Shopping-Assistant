@@ -28,7 +28,7 @@ function ChatBubble({ sender, text, products }) {
           </Avatar>
         )}
         <Paper elevation={3} sx={{ p: 2.5, maxWidth: 600, borderRadius: 4, bgcolor: sender === 'user' ? 'primary.main' : '#fff', color: sender === 'user' ? '#fff' : '#222', boxShadow: 3, fontSize: '1.15rem' }}>
-          <Typography variant="body1" component="div" sx={{ whiteSpace: 'pre-line', fontSize: '1.15rem', '& p': { margin: 0 }, '& ul, & ol': { margin: 0, paddingLeft: '1.2em' }, lineHeight: 1.3 }}>
+          <Typography variant="body1" component="div" sx={{ whiteSpace: 'pre-line', fontSize: '1 rem', '& p': { margin: 0 }, '& ul, & ol': { margin: 0, paddingLeft: '1.2em' }, lineHeight: 1.3 }}>
             {typeof text === 'string' ? <ReactMarkdown>{text}</ReactMarkdown> : text}
           </Typography>
           {products && products.length > 0 && (
